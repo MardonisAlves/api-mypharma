@@ -14,3 +14,13 @@ model User {
   name    String?
   
 }
+
+model Product {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  price       String
+  description String
+  estoque     Int
+  categoria   String
+
+}
