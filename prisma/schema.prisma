@@ -15,3 +15,27 @@ model User {
   name    String?
   
 }
+
+model Product {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId 
+  name        String
+  price       String
+  description String
+  estoque     Int
+  categoria   String
+
+
+  upload     Upload?
+}
+
+
+model Upload {
+  id         String       @id   @default(auto())  @map("_id")  @db.ObjectId
+  location   String
+  key        String
+  bucket     String
+
+
+  product    Product @relation(fields: [prodId], references: [id], onDelete: Cascade) 
+  prodId    String  @unique  @db.ObjectId
+}
