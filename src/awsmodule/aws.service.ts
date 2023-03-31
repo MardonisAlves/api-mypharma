@@ -1,7 +1,8 @@
 import { HttpStatus, Injectable } from "@nestjs/common";
 import { S3 } from 'aws-sdk';
-import { PrismaService } from "src/prismamodule/prismaService";
+import { PrismaService } from "../prismamodule/prismaService";
 import { v4 as uuidv4 } from 'uuid';
+import { Location } from "./location.interface";
 
 @Injectable()
 
@@ -19,7 +20,7 @@ export class AwsService {
   constructor(private readonly prisma: PrismaService) { }
 
 
-  async createUploadAws(file: Express.Multer.File, Id: number) {
+  async createUploadAws(file: Express.Multer.File, Id: string) {
     try {
 
       const params = {
@@ -28,10 +29,9 @@ export class AwsService {
         Key: `${uuidv4()}-${file.originalname}`,
       }
 
-      const upload = await this.s3.upload(params).promise();
+      const upload:Location = await this.s3.upload(params).promise();
       if (upload.Location) {
-        //return await this.registerUrlAws(upload, Id);
-        return upload
+        await this.recordUpload(upload, Id)
       }
 
     } catch (error) {
@@ -41,6 +41,22 @@ export class AwsService {
         message: 'Error interno'
       }
 
+    }
+  }
+
+  async recordUpload(upload:Location, id:string){
+    try {
+     await this.prisma.upload.create({
+        data:{
+          bucket:upload.Bucket,
+          key:upload.Key,
+          location:upload.Location,
+          prodId:id,
+
+        }
+      });
+    } catch (error) {
+      return error
     }
   }
 }
