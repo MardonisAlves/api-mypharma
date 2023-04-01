@@ -62,4 +62,30 @@ export class ProductService {
     }
    }
 
+   async deleteUploadAws(key:string, prodId:string){
+    try {
+      const deleteaws = await this.awsservice.deleteUploadAws(key)
+      if(deleteaws){
+        await this.delereRecordaws(prodId)
+      }
+    } catch (error) {
+      return error
+    }
+   }
+
+   async delereRecordaws(prodId:string){
+    try {
+      return await this.prisma.product.delete({
+        where:{
+          id:prodId
+        },
+        include:{
+          upload:true
+        }
+      })
+    } catch (error) {
+      return error
+    }
+  }
+
   }

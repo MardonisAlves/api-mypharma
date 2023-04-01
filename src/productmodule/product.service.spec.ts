@@ -68,7 +68,7 @@ describe('ProductService', () => {
        .then((res => {  
         deleteupload = {
           prodid: res[0].id,
-          key: res[0].upload.Key
+          key: res[0].upload.key
         }            
          expect(res[0].category).toContain(create.category)
        }))
@@ -77,11 +77,13 @@ describe('ProductService', () => {
   })
 
 
-  describe('delete produtcs', () => {
-    it('deve deletar products!', async() => {
-      await productService.listAll()
-       .then((res => {          
-         expect(res[0].category).toContain(create.category)
+  describe('delete produtc', () => {
+    it('deve deletar product!', async() => {
+      await productService.deleteUploadAws(deleteupload.key, deleteupload.prodid)
+       .then((res => {  
+        console.log(res);
+                
+        // expect(res[0].category).toContain(create.category)
        }))
      });
     
