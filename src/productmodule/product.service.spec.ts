@@ -44,7 +44,7 @@ describe('ProductService', () => {
   });
 
 
-  describe('create product', () => {
+  describe('test product', () => {
     it('deve criar um object!', async() => {
      await productService.createProduct(create, FileBuffer)
       .then((res => {
@@ -57,12 +57,9 @@ describe('ProductService', () => {
         }
       }))
     });
-  });
-  
 
-  let deleteupload:any =''
-
-  describe('list produtcs', () => {
+    
+      let deleteupload:any =''
     it('deve retonar lista de object!', async() => {
       await productService.listAll()
        .then((res => {  
@@ -73,18 +70,14 @@ describe('ProductService', () => {
          expect(res[0]?.category).toContain(create.category)
        }))
      });
-    
-  })
 
-
-  describe('delete produtc', () => {
-    it('deve deletar product!', async() => {
-      await productService.deleteUploadAws(deleteupload.key, deleteupload.prodid)
-       .then((res => {   
-        expect(res.message).toEqual('deletado com sucesso!')
-        expect(res.status).toBe(200)
-       }))
-     });
-    
-  })
+     it('deve deletar product!', async() => {
+       await productService.deleteUploadAws(deleteupload.key, deleteupload.prodid)
+        .then((res => {   
+         expect(res.message).toEqual('deletado com sucesso!')
+         expect(res.status).toBe(200)
+        }))
+      });
+  });
+  
 });
