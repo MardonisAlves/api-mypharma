@@ -15,7 +15,7 @@ describe('ProductService', () => {
     price: '2.99',
     description: 'iogute morango sem adocante',
     stock: "20",
-    category: 'laticinios',
+    category: 'Laticinios',
     file: undefined
   }
 
