@@ -18,11 +18,11 @@ model User {
 
 model Product {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId 
-  name        String
+  name        String   @unique
   price       String
   description String
-  estoque     String
-  categoria   String
+  stock       String
+  category   String
 
 
   upload     Upload?
