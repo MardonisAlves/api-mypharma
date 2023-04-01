@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 async function bootstrap() {
   const app = await NestFactory.create(ProductModule);
   app.useGlobalPipes(new ValidationPipe());
-  
+  app.enableCors({origin:'*'})
   const config = new DocumentBuilder()
     .setTitle('API MYPHARMA')
     .setDescription('api list products')
