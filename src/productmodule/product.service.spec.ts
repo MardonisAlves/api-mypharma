@@ -67,9 +67,6 @@ describe('ProductService', () => {
           prodid: res[0]?.id,
           key: res[0]?.upload?.key
         }   
-        
-        console.log(res);
-        
          expect(res[0].category).toContain(create.category)
        }))
      });
