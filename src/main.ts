@@ -8,8 +8,8 @@ async function bootstrap() {
   app.enableCors({origin:'*'})
   const config = new DocumentBuilder()
     .setTitle('API MYPHARMA')
-    .setDescription('api list products')
-    .setVersion('1.0')
+    .setDescription('api list products v1')
+    .setVersion('v1.0')
     .addTag('api')
     .build();
   const document = SwaggerModule.createDocument(app, config);

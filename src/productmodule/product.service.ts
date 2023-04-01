@@ -50,6 +50,21 @@ export class ProductService {
     }
    }
 
+   async listProductById(prodId:string){
+    try {
+     return await this.prisma.product.findUnique({
+      where:{
+        id:prodId
+      },
+      include:{
+        upload:true
+      }
+     }) 
+    } catch (error) {
+      return error
+    }
+   }
+
    async checkProductExists(name:string){
     try {
      return await this.prisma.product.findFirst({
