@@ -43,6 +43,7 @@ describe('ProductService', () => {
     productService =  app.get<ProductService>(ProductService);
   });
 
+
   describe('create product', () => {
     it('deve criar um object!', async() => {
      await productService.createProduct(create, FileBuffer)
@@ -56,14 +57,33 @@ describe('ProductService', () => {
         }
       }))
     });
+  });
+  
 
-    
+  let deleteupload:any =''
+
+  describe('list produtcs', () => {
     it('deve retonar lista de object!', async() => {
       await productService.listAll()
-       .then((res => {              
+       .then((res => {  
+        deleteupload = {
+          prodid: res[0].id,
+          key: res[0].upload.Key
+        }            
          expect(res[0].category).toContain(create.category)
        }))
      });
+    
+  })
 
-  });
+
+  describe('delete produtcs', () => {
+    it('deve deletar products!', async() => {
+      await productService.listAll()
+       .then((res => {          
+         expect(res[0].category).toContain(create.category)
+       }))
+     });
+    
+  })
 });
