@@ -21,17 +21,16 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set environment variables
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          PORT: ${{ secrets.PORT }}
-          AWS_S3_BUCKET_NAME_TEST: ${{ secrets.AWS_S3_BUCKET_NAME_TEST }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           echo "Carregando variáveis de ambiente..."
-          source .env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
+          echo "PORT=${{ secrets.PORT }}" >> $GITHUB_ENV
+          echo "AWS_S3_BUCKET_NAME_TEST=${{ secrets.AWS_S3_BUCKET_NAME_TEST }}" >> $GITHUB_ENV
+          echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
           echo "Variáveis de ambiente carregadas com sucesso."
+        shell: bash
 
       - run: npm ci
       - run: npm run test
