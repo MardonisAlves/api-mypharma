@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ProductService } from './product.service';
 import ProductDto from './productdto/product.dto';
 import { Response } from 'express';
@@ -39,6 +39,21 @@ export class ProductController {
     try {
       const listall = await this.productService.listAll()
       return res.json(listall)
+    } catch (error) {
+      return error
+    }
+  }
+
+
+  @ApiOperation({ summary: 'lista produdts byId' })
+  @ApiResponse({
+    status:200,
+    description:'retorna um object',
+  })
+  @Get('list/product/:id')
+  async listProductById(@Param('id') id:string){
+    try {
+     return await this.productService.listProductById(id)
     } catch (error) {
       return error
     }

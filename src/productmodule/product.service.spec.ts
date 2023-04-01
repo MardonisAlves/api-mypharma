@@ -44,7 +44,8 @@ describe('ProductService', () => {
   });
 
 
-  describe('test product', () => {
+  describe('unit test product', () => {
+
     it('deve criar um object!', async() => {
      await productService.createProduct(create, FileBuffer)
       .then((res => {
@@ -58,21 +59,26 @@ describe('ProductService', () => {
       }))
     });
 
-    
-      let deleteupload:any =''
+      let list:any =''
     it('deve retonar lista de object!', async() => {
       await productService.listAll()
        .then((res => {  
-        deleteupload = {
-          prodid: res[0]?.id,
-          key: res[0]?.upload?.key
-        }   
+        list = res
          expect(res[0]?.category).toContain(create.category)
        }))
      });
 
+
+     it('deve retornat um object byId', async() => {
+      await productService.listProductById(list[0]?.id)
+       .then((res => {  
+         expect(res).toMatchObject(list[0])
+       }))
+     });
+
+
      it('deve deletar product!', async() => {
-       await productService.deleteUploadAws(deleteupload.key, deleteupload.prodid)
+       await productService.deleteUploadAws(list.key, list.prodid)
         .then((res => {   
          expect(res.message).toEqual('deletado com sucesso!')
          expect(res.status).toBe(200)
