@@ -59,4 +59,19 @@ export class AwsService {
       return error
     }
   }
+
+
+  async deleteUploadAws(key:string){
+    try {
+      const params = {
+        Bucket: process.env.AWS_S3_BUCKET_NAME_TEST,
+        Key: key
+      }
+     return await this.s3.deleteObject(params).promise()
+  
+    } catch (error) {
+      return error
+    }
+  }
+
 }
