@@ -67,6 +67,10 @@ export class ProductService {
       const deleteaws = await this.awsservice.deleteUploadAws(key)
       if(deleteaws){
         await this.delereRecordaws(prodId)
+        return{
+          status:HttpStatus.OK,
+          message: 'deletado com sucesso!'
+        }
       }
     } catch (error) {
       return error
