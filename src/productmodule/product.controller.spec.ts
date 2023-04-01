@@ -14,7 +14,7 @@ describe('ProductService', () => {
     name:'iogute',
     price:'2.99',
     description:'iogute morango sem adocante',
-    estoque:20,
+    estoque:"20",
     categoria:'laticinios',
   }
 

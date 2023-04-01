@@ -21,7 +21,7 @@ model Product {
   name        String
   price       String
   description String
-  estoque     Int
+  estoque     String
   categoria   String
 
 
