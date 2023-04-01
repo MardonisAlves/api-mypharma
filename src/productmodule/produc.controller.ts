@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ProductService } from './product.service';
 import ProductDto from './productdto/product.dto';
 import { Response } from 'express';
@@ -22,9 +22,23 @@ export class ProductController {
     @Res() res: Response,
     @UploadedFile() file: Express.Multer.File) {
     try {
-      
      const create = await this.productService.createProduct(createProduct, file);
-     return res.json({ create })
+     return res.json(create)
+    } catch (error) {
+      return error
+    }
+  }
+
+  @Get('list/products')
+  @ApiOperation({ summary: 'Lista de produtos' })
+  @ApiResponse({
+    status:200,
+    description:'retorna lista de produtos',
+  })
+  async listProducts(@Res() res:Response){
+    try {
+      const listall = await this.productService.listAll()
+      return res.json(listall)
     } catch (error) {
       return error
     }

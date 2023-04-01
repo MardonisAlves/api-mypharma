@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator";
 import { ApiProperty } from '@nestjs/swagger'
 export default class ProductDto {
 
@@ -31,7 +31,7 @@ export default class ProductDto {
         })
         @IsString()
         @IsNotEmpty({ message: 'Não pode se vazio' })
-        estoque: string;
+        stock: string;
 
 
         @ApiProperty({
@@ -39,7 +39,7 @@ export default class ProductDto {
         })
         @IsString()
         @IsNotEmpty({ message: 'Não pode se vazio' })
-        categoria: string;
+        category: string;
 
         @ApiProperty({ type: 'string', format: 'binary' })
         file: any;

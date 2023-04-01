@@ -13,6 +13,14 @@ export class ProductService {
   async createProduct(createProduct:ProductDto, file:Express.Multer.File) {
 
     try {
+     const checkproduct = await this.checkProductExists(createProduct.name);
+      if(checkproduct){
+        return{
+          message:'Este produto ja esta cadastrado',
+          status:HttpStatus.OK
+        }
+      }
+
       const create = await this.prisma.product.create({
         data:createProduct
       })
@@ -20,7 +28,7 @@ export class ProductService {
       if(create.id){
        await this.awsservice.createUploadAws(file , create.id)
           return {
-            create:create,
+            message:'produto criado com sucesso!',
             status:HttpStatus.CREATED
           }
       }
@@ -28,5 +36,29 @@ export class ProductService {
       return error;
     }
     
+   }
+
+   async listAll(){
+    try {
+     return await this.prisma.product.findMany({
+      include:{
+        upload:true
+      }
+     }) 
+    } catch (error) {
+      return error
+    }
+   }
+
+   async checkProductExists(name:string){
+    try {
+     return await this.prisma.product.findFirst({
+        where:{
+          name:name
+        }
+      })
+    } catch (error) {
+      return error
+    }
    }
   }

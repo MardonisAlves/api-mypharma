@@ -11,11 +11,12 @@ describe('ProductService', () => {
   
   let productService: ProductService
   const create:ProductDto = {
-    name:'iogute',
-    price:'2.99',
-    description:'iogute morango sem adocante',
-    estoque:"20",
-    categoria:'laticinios',
+    name: 'iogute',
+    price: '2.99',
+    description: 'iogute morango sem adocante',
+    stock: "20",
+    category: 'laticinios',
+    file: undefined
   }
 
   const img = Buffer.from('./client/iogute.png');
@@ -43,13 +44,26 @@ describe('ProductService', () => {
   });
 
   describe('create product', () => {
-    it('deve retonar um object!', async() => {
+    it('deve criar um object!', async() => {
      await productService.createProduct(create, FileBuffer)
       .then((res => {
-        expect(res.create.name).toEqual(create.name)
-        expect(res.status).toBe(201)
+        if(res.status === 200){
+          expect(res.message).toEqual('Este produto ja esta cadastrado')
+          expect(res.status).toBe(200)
+        }else{
+          expect(res.message).toEqual('produto criado com sucesso!')
+          expect(res.status).toBe(201)
+        }
       }))
     });
+
+    
+    it('deve retonar lista de object!', async() => {
+      await productService.listAll()
+       .then((res => {              
+         expect(res[0].category).toContain(create.category)
+       }))
+     });
 
   });
 });
