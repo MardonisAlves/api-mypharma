@@ -66,8 +66,11 @@ describe('ProductService', () => {
         deleteupload = {
           prodid: res[0]?.id,
           key: res[0]?.upload?.key
-        }            
-         expect(res[0]?.category).toContain(create.category)
+        }   
+        
+        console.log(res);
+        
+         expect(res[0].category).toContain(create.category)
        }))
      });
 
