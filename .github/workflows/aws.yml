@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -42,6 +42,6 @@ jobs:
           switches: -avzr --delete
           path: ./*
           remote_path: /home/ubuntu
-          remote_host: ec2-3-82-130-146.compute-1.amazonaws.com
+          remote_host: ec2-52-86-121-169.compute-1.amazonaws.com
           remote_user: ubuntu
           remote_key: "${{ secrets.AWS_CERT_PEM }}"
