@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prismamodule/prismaService";
 import {Location } from './../uploadmodule/location.interface'
-var ImageKit = require("imagekit");
+let ImageKit = require("imagekit");
 
 
 @Injectable()
@@ -14,18 +14,16 @@ export class UploadService {
   async recordUpload(file: Express.Multer.File, id: string) {
     try {
       const upload = await this.uploadImage(file)
-      
-      if(upload.thumbnailUrl){
+      if(upload.url){
         await this.prisma.upload.create({
           data: {
-            location: upload.thumbnailUrl,
+            location: upload.url,
             prodId: id,
             fileid: upload.fileId
           }
         });
 
       }
-
     } catch (error) {
       return error
     }
@@ -50,7 +48,7 @@ export class UploadService {
         ]
       }).then((response:Location) => {
         return response
-      }).catch((error:any) => {
+      }).catch((error:any) => {       
         return error
       });
 
@@ -58,13 +56,19 @@ export class UploadService {
   }
 
 
-  async deleteUploadImage(key: string) {
-    try {
-
-
-    } catch (error) {
-      return error
-    }
+  async deleteUploadImage(fileId: string) {
+      let imagekit = new ImageKit({
+        privateKey: `${process.env.PRIVATE_KEY}`,
+        publicKey: `${process.env.PUBLIC_KEY}`,
+        urlEndpoint: `${process.env.URL_END_POINT}`,
+      })
+      
+   return await  imagekit.deleteFile(fileId).then(response => {
+        return response
+    }).catch(error => {
+        console.log(error);
+        return error
+    });
   }
 
 }
