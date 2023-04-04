@@ -1,11 +1,10 @@
-import { Body, Controller, Get, HttpStatus, Param, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ProductService } from './product.service';
 import ProductDto from './productdto/product.dto';
 import { Response } from 'express';
-import {ApiTags, ApiConsumes, ApiOperation, ApiResponse} from '@nestjs/swagger'
+import {ApiTags, ApiConsumes, ApiOperation, ApiResponse, ApiBody} from '@nestjs/swagger'
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
+import CategoryDto from './productdto/category.dto';
 
 
 @ApiTags('Products')
@@ -31,7 +30,14 @@ export class ProductController {
     }
   }
 
-
+  @Post('create/category')
+  async createCategory(@Body() category:CategoryDto){
+    try {
+      return await this.productService.createCategory(category)
+    } catch (error) {
+      
+    }
+  }
 
 
   @Get('list/products')
@@ -49,9 +55,6 @@ export class ProductController {
     }
   }
 
-
-
-  
   @ApiOperation({ summary: 'lista produdts byId' })
   @ApiResponse({
     status:200,
@@ -63,6 +66,20 @@ export class ProductController {
      return await this.productService.listProductById(id)
     } catch (error) {
       return error
+    }
+  }
+
+  @ApiOperation({summary: 'lista categorias'})
+  @ApiResponse({
+    status:200,
+    description:'retorna um array de categorias'
+  })
+  @Get('list/category')
+  async listCategory(){
+    try {
+      return await this.productService.listAllCategory();
+    } catch (error) {
+      return  error
     }
   }
 }

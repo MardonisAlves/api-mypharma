@@ -16,13 +16,29 @@ model User {
   
 }
 
+
+
+
+
+model Category {
+  id String      @id  @default(auto()) @map("_id")  @db.ObjectId
+  category  String   @unique
+
+
+  product   Product[]
+}
+
+
+
 model Product {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId 
   name        String   @unique
   price       String
   description String
   stock       String
-  category   String
+
+  category    Category @relation(fields: [catId], references: [id]) 
+  catId    String    @db.ObjectId
 
 
   upload     Upload?
