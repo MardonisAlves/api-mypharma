@@ -1,6 +1,6 @@
 import { HttpStatus, Injectable } from "@nestjs/common";
 import { PrismaService } from "../prismamodule/prismaService";
-import CategoryDto from "../productmodule/productdto/category.dto";
+import CategoryDto from "./categorydto/category.dto";
 
 @Injectable()
 export class CategoryService{
@@ -48,6 +48,23 @@ export class CategoryService{
     try {
       return await this.prisma.category.findMany({})
     } catch (error) {
+      return error
+    }
+   }
+
+   async listCategoryByCategoryId(catId:string){
+    try {
+      return await this.prisma.product.findMany({
+        where:{
+          catId:catId
+        },
+        include:{
+          category:true
+        }
+      })
+    } catch (error) {
+      console.log(error);
+      
       return error
     }
    }

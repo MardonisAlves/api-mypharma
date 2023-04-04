@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import CategoryDto from "src/productmodule/productdto/category.dto";
 import { CategoryService } from "./category.service";
+import CategoryDto from "./categorydto/category.dto";
 
 @ApiTags('Category')
 @Controller('api/v1/')
