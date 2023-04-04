@@ -80,11 +80,11 @@ export class ProductService {
     }
    }
 
-   async deleteUploadAws(key:string, prodId:string){
+   async deleteUpload(fileId:string, prodId:string){
     try {
-      const deleteaws = await this.uploadservice.deleteUploadImage(key)
+      const deleteaws = await this.uploadservice.deleteUploadImage(fileId)
       if(deleteaws){
-        await this.delereRecordaws(prodId)
+        await this.delereRecordUpload(prodId)
         return{
           status:HttpStatus.OK,
           message: 'deletado com sucesso!'
@@ -95,7 +95,7 @@ export class ProductService {
     }
    }
 
-   async delereRecordaws(prodId:string){
+   async delereRecordUpload(prodId:string){
     try {
       return await this.prisma.product.delete({
         where:{
