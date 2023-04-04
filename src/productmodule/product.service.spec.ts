@@ -8,7 +8,7 @@ import ProductDto from './productdto/product.dto';
 
 
 describe('ProductService', () => {
-
+  jest.setMock(30000)
   let productService: ProductService
   const create: ProductDto = {
     name: 'iogute',
