@@ -40,11 +40,12 @@ describe('ProductService', () => {
 
 
   describe('unit test product', () => {
-    const category:any = [ { id: '642c1e5eb40173132476ad0f', category: 'Laticinios' } ]
+    
+    const category:any = [ {category: 'Laticinios' } ]
 
     let catId:any=''
     it('create category', async () => {
-      await productService.createCategory('Laticinios')
+      await productService.createCategory(category[0].category)
       .then((res:any) => {
         if(res.status === 200){
           catId= res.catId
@@ -61,7 +62,7 @@ describe('ProductService', () => {
     it('deve retornar um array categoria', async() => {
       await productService.listAllCategory()
       .then((res) => {
-        expect(res).toMatchObject(category)
+        expect(res[0]).toEqual(expect.objectContaining(category[0]));
       })
     })
 
