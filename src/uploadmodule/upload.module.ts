@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { PrismaModule } from '../prismamodule/prisma.module';
-import { AwsService } from './aws.service';
+import { UploadService } from './upload.service';
 
 @Module({
     imports:[PrismaModule],
-    providers:[AwsService],
-    exports:[AwsService]
+    providers:[UploadService],
+    exports:[UploadService]
 })
-export class AwsModule {}
+export class UploadModule {}

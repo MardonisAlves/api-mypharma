@@ -1,14 +1,16 @@
 import {  HttpStatus, Injectable } from '@nestjs/common';
 import ProductDto from './productdto/product.dto';
 import { PrismaService } from '../prismamodule/prismaService';
-import { AwsService } from '../awsmodule/aws.service';
+import { UploadService } from '../uploadmodule/upload.service';
+import { Location } from './../uploadmodule/location.interface'
+
 
 @Injectable()
 export class ProductService {
 
   constructor(
     private prisma:PrismaService,
-    private awsservice:AwsService){}
+    private uploadservice:UploadService){}
 
   async createProduct(createProduct:ProductDto, file:Express.Multer.File) {
 
@@ -25,8 +27,9 @@ export class ProductService {
         data:createProduct
       })
       
+  
       if(create.id){
-       await this.awsservice.createUploadAws(file , create.id)
+       await this.uploadservice.recordUpload(file, create.id)
           return {
             message:'produto criado com sucesso!',
             status:HttpStatus.CREATED
@@ -79,7 +82,7 @@ export class ProductService {
 
    async deleteUploadAws(key:string, prodId:string){
     try {
-      const deleteaws = await this.awsservice.deleteUploadAws(key)
+      const deleteaws = await this.uploadservice.deleteUploadImage(key)
       if(deleteaws){
         await this.delereRecordaws(prodId)
         return{

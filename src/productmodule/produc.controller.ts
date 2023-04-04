@@ -4,6 +4,8 @@ import ProductDto from './productdto/product.dto';
 import { Response } from 'express';
 import {ApiTags, ApiConsumes, ApiOperation, ApiResponse} from '@nestjs/swagger'
 import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 
 @ApiTags('Products')
@@ -20,7 +22,7 @@ export class ProductController {
   async createProduct(
     @Body() createProduct: ProductDto,
     @Res() res: Response,
-    @UploadedFile() file: Express.Multer.File) {
+    @UploadedFile() file:Express.Multer.File) {
     try {
      const create = await this.productService.createProduct(createProduct, file);
      return res.json(create)
@@ -28,6 +30,9 @@ export class ProductController {
       return error
     }
   }
+
+
+
 
   @Get('list/products')
   @ApiOperation({ summary: 'Lista de produtos' })
@@ -45,6 +50,8 @@ export class ProductController {
   }
 
 
+
+  
   @ApiOperation({ summary: 'lista produdts byId' })
   @ApiResponse({
     status:200,
