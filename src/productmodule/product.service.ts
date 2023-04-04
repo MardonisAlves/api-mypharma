@@ -2,7 +2,7 @@ import {  HttpStatus, Injectable } from '@nestjs/common';
 import ProductDto from './productdto/product.dto';
 import { PrismaService } from '../prismamodule/prismaService';
 import { UploadService } from '../uploadmodule/upload.service';
-import { Location } from './../uploadmodule/location.interface'
+
 
 
 @Injectable()

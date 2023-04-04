@@ -8,6 +8,11 @@ let ImageKit = require("imagekit");
 
 export class UploadService {
 
+  private imagekit = new ImageKit({
+    privateKey: `${process.env.PRIVATE_KEY}`,
+    publicKey: `${process.env.PUBLIC_KEY}`,
+    urlEndpoint: `${process.env.URL_END_POINT}`,
+  })
 
   constructor(private readonly prisma: PrismaService) { }
 
@@ -30,13 +35,7 @@ export class UploadService {
   }
 
   async uploadImage(file: Express.Multer.File) {
-      let imagekit = new ImageKit({
-        privateKey: `${process.env.PRIVATE_KEY}`,
-        publicKey: `${process.env.PUBLIC_KEY}`,
-        urlEndpoint: `${process.env.URL_END_POINT}`,
-      })
-
-     const upload:Location  = await imagekit.upload({
+     const upload:Location  = await this.imagekit.upload({
         file: file.buffer,
         fileName: file.originalname,   
         extensions: [
@@ -57,16 +56,9 @@ export class UploadService {
 
 
   async deleteUploadImage(fileId: string) {
-      let imagekit = new ImageKit({
-        privateKey: `${process.env.PRIVATE_KEY}`,
-        publicKey: `${process.env.PUBLIC_KEY}`,
-        urlEndpoint: `${process.env.URL_END_POINT}`,
-      })
-      
-   return await  imagekit.deleteFile(fileId).then(response => {
+   return await this.imagekit.deleteFile(fileId).then((response:any) => {
         return response
-    }).catch(error => {
-        console.log(error);
+    }).catch((error:any) => {
         return error
     });
   }
