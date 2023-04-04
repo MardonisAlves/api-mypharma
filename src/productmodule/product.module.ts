@@ -3,14 +3,15 @@ import { ProductController } from './produc.controller';
 import { ProductService } from './product.service';
 import { PrismaModule } from '../prismamodule/prisma.module';
 import { ConfigModule } from '@nestjs/config';
-import { AwsModule } from 'src/awsmodule/aws.module';
+import { UploadModule } from 'src/uploadmodule/upload.module';
+
 
 
 @Module({
   imports: [
       PrismaModule,
       ConfigModule.forRoot({isGlobal:true}),
-      AwsModule],
+      UploadModule],
   controllers: [ProductController],
   providers: [ProductService],
 })
