@@ -3,6 +3,14 @@ import { ApiProperty } from '@nestjs/swagger'
 export default class ProductDto {
 
         @ApiProperty({
+                example:""
+        })
+        @IsString()
+        @IsNotEmpty({message: 'Categoria nao pode ser vazio'})
+        catId:string;
+
+
+        @ApiProperty({
                 example: 'iogute',
         })
         @IsString()
@@ -33,13 +41,6 @@ export default class ProductDto {
         @IsNotEmpty({ message: 'Não pode se vazio' })
         stock: string;
 
-
-        @ApiProperty({
-                example: 'Laticinios',
-        })
-        @IsString()
-        @IsNotEmpty({ message: 'Não pode se vazio' })
-        category: string;
 
         @ApiProperty({ type: 'string', format: 'binary' })
         file: any;
