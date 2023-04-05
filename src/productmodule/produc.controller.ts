@@ -2,9 +2,8 @@ import { Body, Controller, Get, Param, Post, Res, UploadedFile, UseInterceptors 
 import { ProductService } from './product.service';
 import ProductDto from './productdto/product.dto';
 import { Response } from 'express';
-import {ApiTags, ApiConsumes, ApiOperation, ApiResponse, ApiBody} from '@nestjs/swagger'
+import {ApiTags, ApiConsumes, ApiOperation, ApiResponse,} from '@nestjs/swagger'
 import { FileInterceptor } from '@nestjs/platform-express';
-import CategoryDto from './productdto/category.dto';
 
 
 @ApiTags('Products')
@@ -14,7 +13,7 @@ export class ProductController {
 
   @Post('/create/product')
   @ApiConsumes('multipart/form-data')
-  @ApiOperation({ summary: 'Upload de arquivo' })
+  @ApiOperation({ summary: 'create product and file upload' })
   @ApiResponse({ status: 201, description: 'Arquivo enviado com sucesso' })
   @ApiResponse({ status: 400, description: 'Requisição inválida' })
   @UseInterceptors(FileInterceptor('file'))
@@ -30,18 +29,10 @@ export class ProductController {
     }
   }
 
-  @Post('create/category')
-  async createCategory(@Body() category:CategoryDto){
-    try {
-      return await this.productService.createCategory(category)
-    } catch (error) {
-      
-    }
-  }
 
 
   @Get('list/products')
-  @ApiOperation({ summary: 'Lista de produtos' })
+  @ApiOperation({ summary: 'List products' })
   @ApiResponse({
     status:200,
     description:'retorna lista de produtos',
@@ -55,7 +46,7 @@ export class ProductController {
     }
   }
 
-  @ApiOperation({ summary: 'lista produdts byId' })
+  @ApiOperation({ summary: 'list products by Id' })
   @ApiResponse({
     status:200,
     description:'retorna um object',
@@ -69,17 +60,5 @@ export class ProductController {
     }
   }
 
-  @ApiOperation({summary: 'lista categorias'})
-  @ApiResponse({
-    status:200,
-    description:'retorna um array de categorias'
-  })
-  @Get('list/category')
-  async listCategory(){
-    try {
-      return await this.productService.listAllCategory();
-    } catch (error) {
-      return  error
-    }
-  }
+  
 }
