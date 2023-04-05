@@ -29,13 +29,11 @@ export class ProductController {
     }
   }
 
-
-
   @Get('list/products')
   @ApiOperation({ summary: 'List products' })
   @ApiResponse({
     status:200,
-    description:'retorna lista de produtos',
+    description:'return list products',
   })
   async listProducts(@Res() res:Response){
     try {
@@ -49,7 +47,7 @@ export class ProductController {
   @ApiOperation({ summary: 'list products by Id' })
   @ApiResponse({
     status:200,
-    description:'retorna um object',
+    description:'return array object',
   })
   @Get('list/product/:id')
   async listProductById(@Param('id') id:string){
@@ -63,7 +61,7 @@ export class ProductController {
   @ApiOperation({ summary: 'filter products by name' })
   @ApiResponse({
     status:200,
-    description:'retorna um object',
+    description:'return array objet',
   })
   @Get('filter/product/:name')
   async filterproductsByName(@Param('name') name:string){
@@ -75,18 +73,29 @@ export class ProductController {
   }
 
 
-  
-
   @ApiOperation({ summary: 'filter products by lowest price' })
   @ApiResponse({
     status:200,
-    description:'retorna um object',
+    description:'return array object',
   })
   @Get('product/lowestprice')
   async filterproductsByLowestPrice(){
     try {
      return await this.productService.filterProductByLowestPrice()
-      
+    } catch (error) {
+      return error
+    }
+  }
+
+  @ApiOperation({ summary: 'filter products by bigges price' })
+  @ApiResponse({
+    status:200,
+    description:'return array object',
+  })
+  @Get('products/biggesprice')
+  async listProductsBiggesPrice(){
+    try {
+      return await this.productService.filterProductBiggesPrice()
     } catch (error) {
       return error
     }
