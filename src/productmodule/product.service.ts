@@ -149,10 +149,24 @@ export class ProductService {
         }
       })
     } catch (error) {
-      console.log(error);
-      
       return error
     }
    }
 
+
+   async filterProductBiggesPrice(){
+    try {
+      return await this.prisma.product.findMany({
+        orderBy:{
+          price: 'asc'
+        }
+        ,include:{
+          category:true,
+          upload:true
+        }
+      })
+    } catch (error) {
+      return error
+    }
+   }
   }

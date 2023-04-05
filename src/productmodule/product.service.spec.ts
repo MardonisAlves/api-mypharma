@@ -136,6 +136,14 @@ describe('ProductService', () => {
         })
     })
 
+    it('deve retornar products bigges price', async () => {
+      await productService.filterProductBiggesPrice()
+      .then((res) => {
+        expect(res).toMatchObject(list)
+        
+      })
+    })
+
 
     it('deve deletar product!', async () => {
       await productService.deleteUpload(list[0]?.upload?.fileid, list[0]?.id)
