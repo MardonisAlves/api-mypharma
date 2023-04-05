@@ -72,6 +72,6 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](LICENSE).
 # api-mypharma
-<p align="center">
+<p align="left">
   <a href="" target="blank"><img src="client/api.png" width="200" alt="Nest Logo" /></a>
 </p>
