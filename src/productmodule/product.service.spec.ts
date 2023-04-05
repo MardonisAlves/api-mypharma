@@ -115,7 +115,7 @@ describe('ProductService', () => {
 
     it('deve retornat um object byId', async () => {
       await productService.listProductById(list[0]?.id)
-        .then((res => {
+        .then((res => {         
           expect(res).toMatchObject(list[0])
         }))
     });

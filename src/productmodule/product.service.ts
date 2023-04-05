@@ -65,7 +65,8 @@ export class ProductService {
         id:prodId
       },
       include:{
-        upload:true
+        upload:true,
+        category:true
       }
      }) 
     } catch (error) {
