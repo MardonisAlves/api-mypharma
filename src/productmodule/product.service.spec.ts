@@ -129,12 +129,20 @@ describe('ProductService', () => {
     })
 
 
+    it('deve retornar product menor preco', async() =>{
+      await productService.filterProductByLowestPrice()
+      .then((res) => {
+        expect(res).toMatchObject(list)
+      })
+    })
+
+
     it('deve deletar product!', async () => {
       await productService.deleteUpload(list[0]?.upload?.fileid, list[0]?.id)
-        .then((res => {
-          expect(res.message).toEqual('deletado com sucesso!')
-          expect(res.status).toBe(200)
-        }))
+       .then((res => {
+         expect(res.message).toEqual('deletado com sucesso!')
+         expect(res.status).toBe(200)
+       }))
     });
   });
 

@@ -74,5 +74,22 @@ export class ProductController {
     }
   }
 
+
+  
+
+  @ApiOperation({ summary: 'filter products by lowest price' })
+  @ApiResponse({
+    status:200,
+    description:'retorna um object',
+  })
+  @Get('product/lowestprice')
+  async filterproductsByLowestPrice(){
+    try {
+     return await this.productService.filterProductByLowestPrice()
+      
+    } catch (error) {
+      return error
+    }
+  }
   
 }

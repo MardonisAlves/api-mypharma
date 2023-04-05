@@ -137,4 +137,22 @@ export class ProductService {
     }
    }
 
+   async filterProductByLowestPrice(){
+    try {
+      return await this.prisma.product.findMany({
+        orderBy:{
+          price: 'desc'
+        }
+        ,include:{
+          category:true,
+          upload:true
+        }
+      })
+    } catch (error) {
+      console.log(error);
+      
+      return error
+    }
+   }
+
   }
