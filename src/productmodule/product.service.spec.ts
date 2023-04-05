@@ -13,7 +13,7 @@ describe('ProductService', () => {
 
   let productService: ProductService
   let categoryService: CategoryService
- 
+
 
   const img = Buffer.from('./client/iogute.png');
   const FileBuffer: Express.Multer.File = {
@@ -42,34 +42,34 @@ describe('ProductService', () => {
 
 
   describe('unit test product', () => {
-    const category:any = [ {category: 'Laticinios' } ]
+    const category: any = [{ category: 'Laticinios' }]
 
-    let catId:any=''
+    let catId: any = ''
     it('create category', async () => {
       await categoryService.createCategory(category[0].category)
-      .then((res:any) => {
-        if(res.status === 200){
-          catId= res.catId
-          expect(res.message).toEqual('Categoria ja existe!')
-          expect(res.status).toBe(200)
-        }else{
-          catId = res.catId
-          expect(res.message).toEqual('categoria criada com sucesso!')
-          expect(res.status).toBe(201)
-        }
-      })
+        .then((res: any) => {
+          if (res.status === 200) {
+            catId = res.catId
+            expect(res.message).toEqual('Categoria ja existe!')
+            expect(res.status).toBe(200)
+          } else {
+            catId = res.catId
+            expect(res.message).toEqual('categoria criada com sucesso!')
+            expect(res.status).toBe(201)
+          }
+        })
     })
 
-    let categoryByid:any = ''
-    it('deve retornar um array categoria', async() => {
+    let categoryByid: any = ''
+    it('deve retornar um array categoria', async () => {
       await categoryService.listAllCategory()
-      .then((res) => {
-        categoryByid = res
-        expect(res[0]).toEqual(expect.objectContaining(category[0]));
-      })
+        .then((res) => {
+          categoryByid = res
+          expect(res[0]).toEqual(expect.objectContaining(category[0]));
+        })
     })
 
-   
+
 
     let createproduct: any = ''
     it('deve criar um object!', async () => {
@@ -94,16 +94,16 @@ describe('ProductService', () => {
           }
         }))
     });
-    
+
 
     it('deve retornar category por categoryid product', async () => {
       await categoryService.listCategoryByCategoryId(categoryByid[0].id)
-      .then((res) => {
-        expect(res[0].category).toEqual(expect.objectContaining(categoryByid[0]));
-      })
+        .then((res) => {
+          expect(res[0].category).toEqual(expect.objectContaining(categoryByid[0]));
+        })
     })
 
-    let list:any = ''
+    let list: any = ''
     it('deve retonar array de object!', async () => {
       await productService.listAll()
         .then((res => {
@@ -115,7 +115,7 @@ describe('ProductService', () => {
 
     it('deve retornar um object byId', async () => {
       await productService.listProductById(list[0]?.id)
-        .then((res => {         
+        .then((res => {
           expect(res).toMatchObject(list[0])
         }))
     });
@@ -123,27 +123,27 @@ describe('ProductService', () => {
 
     it('deve filter product by name', async () => {
       await productService.filterProductByName(list.name)
-      .then((res) => {
-        expect(res).toMatchObject(list)
-      })
+        .then((res) => {
+          expect(res).toMatchObject(list)
+        })
     })
 
 
-    it('deve retornar product menor preco', async() =>{
+    it('deve retornar product menor preco', async () => {
       await productService.filterProductByLowestPrice()
-      .then((res) => {
-        expect(res).toMatchObject(list)
-      })
+        .then((res) => {
+          expect(res).toMatchObject(list)
+        })
     })
 
 
-   // it('deve deletar product!', async () => {
-   //   await productService.deleteUpload(list[0]?.upload?.fileid, list[0]?.id)
-    //   .then((res => {
-    //     expect(res.message).toEqual('deletado com sucesso!')
-    ///     expect(res.status).toBe(200)
-    //   }))
-   // });
+    it('deve deletar product!', async () => {
+      await productService.deleteUpload(list[0]?.upload?.fileid, list[0]?.id)
+        .then((res => {
+          expect(res.message).toEqual('deletado com sucesso!')
+          expect(res.status).toBe(200)
+        }))
+    });
   });
 
 });
