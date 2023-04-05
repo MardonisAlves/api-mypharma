@@ -60,5 +60,19 @@ export class ProductController {
     }
   }
 
+  @ApiOperation({ summary: 'filter products by name' })
+  @ApiResponse({
+    status:200,
+    description:'retorna um object',
+  })
+  @Get('filter/product/:name')
+  async filterproductsByName(@Param('name') name:string){
+    try {
+      return await this.productService.filterProductByName(name)
+    } catch (error) {
+      return error
+    }
+  }
+
   
 }

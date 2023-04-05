@@ -113,12 +113,20 @@ describe('ProductService', () => {
     });
 
 
-    it('deve retornat um object byId', async () => {
+    it('deve retornar um object byId', async () => {
       await productService.listProductById(list[0]?.id)
         .then((res => {         
           expect(res).toMatchObject(list[0])
         }))
     });
+
+
+    it('deve filter product by name', async () => {
+      await productService.filterProductByName(list.name)
+      .then((res) => {
+        expect(res).toMatchObject(list)
+      })
+    })
 
 
     it('deve deletar product!', async () => {

@@ -119,4 +119,22 @@ export class ProductService {
     }
   }
 
+  async filterProductByName(name:string){
+    try {
+      return await this.prisma.product.findMany({
+        where:{
+          name:{
+            contains:name
+          }
+        }
+        ,include:{
+          category:true,
+          upload:true
+        }
+      })
+    } catch (error) {
+      return error
+    }
+   }
+
   }
