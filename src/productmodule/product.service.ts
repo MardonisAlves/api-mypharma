@@ -47,7 +47,8 @@ export class ProductService {
     try {
      return await this.prisma.product.findMany({
       include:{
-        upload:true
+        upload:true,
+        category:true
       }
      }) 
     } catch (error) {

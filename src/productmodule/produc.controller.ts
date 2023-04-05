@@ -13,7 +13,7 @@ export class ProductController {
 
   @Post('/create/product')
   @ApiConsumes('multipart/form-data')
-  @ApiOperation({ summary: 'Upload de arquivo' })
+  @ApiOperation({ summary: 'create product and file upload' })
   @ApiResponse({ status: 201, description: 'Arquivo enviado com sucesso' })
   @ApiResponse({ status: 400, description: 'Requisição inválida' })
   @UseInterceptors(FileInterceptor('file'))
@@ -32,7 +32,7 @@ export class ProductController {
 
 
   @Get('list/products')
-  @ApiOperation({ summary: 'Lista de produtos' })
+  @ApiOperation({ summary: 'List products' })
   @ApiResponse({
     status:200,
     description:'retorna lista de produtos',
@@ -46,7 +46,7 @@ export class ProductController {
     }
   }
 
-  @ApiOperation({ summary: 'lista produdts byId' })
+  @ApiOperation({ summary: 'list products by Id' })
   @ApiResponse({
     status:200,
     description:'retorna um object',
