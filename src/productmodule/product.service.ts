@@ -119,4 +119,40 @@ export class ProductService {
     }
   }
 
+  async filterProductByName(name:string){
+    try {
+      return await this.prisma.product.findMany({
+        where:{
+          name:{
+            contains:name
+          }
+        }
+        ,include:{
+          category:true,
+          upload:true
+        }
+      })
+    } catch (error) {
+      return error
+    }
+   }
+
+   async filterProductByLowestPrice(){
+    try {
+      return await this.prisma.product.findMany({
+        orderBy:{
+          price: 'desc'
+        }
+        ,include:{
+          category:true,
+          upload:true
+        }
+      })
+    } catch (error) {
+      console.log(error);
+      
+      return error
+    }
+   }
+
   }
