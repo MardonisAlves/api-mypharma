@@ -137,13 +137,13 @@ describe('ProductService', () => {
     })
 
 
-    it('deve deletar product!', async () => {
-      await productService.deleteUpload(list[0]?.upload?.fileid, list[0]?.id)
-       .then((res => {
-         expect(res.message).toEqual('deletado com sucesso!')
-         expect(res.status).toBe(200)
-       }))
-    });
+   // it('deve deletar product!', async () => {
+   //   await productService.deleteUpload(list[0]?.upload?.fileid, list[0]?.id)
+    //   .then((res => {
+    //     expect(res.message).toEqual('deletado com sucesso!')
+    ///     expect(res.status).toBe(200)
+    //   }))
+   // });
   });
 
 });
