@@ -45,10 +45,17 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Migration Prima ORM com MongoDb
+
+```bash
+# create tables MongoDb
+$ npx prisma db push
+```
+
 ## Test
 
 ```bash
-# unit tests
+# unit tests 
 $ npm run test
 
 # e2e tests
