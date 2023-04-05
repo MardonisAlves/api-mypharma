@@ -1,5 +1,6 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsDecimal, IsNotEmpty, IsString } from "class-validator";
 import { ApiProperty } from '@nestjs/swagger'
+import { float } from "aws-sdk/clients/cloudfront";
 export default class ProductDto {
 
         @ApiProperty({

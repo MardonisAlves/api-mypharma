@@ -33,7 +33,7 @@ model Category {
 model Product {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId 
   name        String   @unique
-  price       String
+  price       Float
   description String
   stock       String
 
