@@ -97,11 +97,11 @@ export class ProductService {
 
  
 
-   async deleteUpload(fileId:string, prodId:string){
+   async deleteUpload(fileId:string){
     try {
       const deleteaws = await this.uploadservice.deleteUploadImage(fileId)
       if(deleteaws){
-        await this.delereRecordUpload(prodId)
+        await this.delereRecordUpload()
         return{
           status:HttpStatus.OK,
           message: 'deletado com sucesso!'
@@ -112,16 +112,9 @@ export class ProductService {
     }
    }
 
-   async delereRecordUpload(prodId:string){
+   async delereRecordUpload(){
     try {
-      return await this.prisma.product.delete({
-        where:{
-          id:prodId
-        },
-        include:{
-          upload:true
-        }
-      })
+      return await this.prisma.product.delete({where:{}})
     } catch (error) {
       return error
     }
@@ -149,7 +142,7 @@ export class ProductService {
     try {
       return await this.prisma.product.findMany({
         orderBy:{
-          price: 'desc'
+          price: 'asc'
         }
         ,include:{
           category:true,
@@ -166,7 +159,7 @@ export class ProductService {
     try {
       return await this.prisma.product.findMany({
         orderBy:{
-          price: 'asc'
+          price: 'desc'
         }
         ,include:{
           category:true,
