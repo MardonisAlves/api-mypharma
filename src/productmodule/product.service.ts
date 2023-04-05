@@ -26,7 +26,13 @@ export class ProductService {
       }
 
       const create = await this.prisma.product.create({
-        data:createProduct
+        data:{
+          name:createProduct.name,
+          description:createProduct.description,
+          price: parseFloat(createProduct.price),
+          stock: createProduct.stock,
+          catId:createProduct.catId
+        }
       })
       
       if(create.id){
@@ -38,6 +44,8 @@ export class ProductService {
           }
       }
     } catch (error) {
+      console.log(error);
+      
       return error;
     }
     
